@@ -1,0 +1,74 @@
+* telescope-floaterm.nvim
+
+** Introduction
+
+=telescope-floaterm.nvim= is an extension for /Neovim's/
+[[https://github.com/nvim-telescope/telescope.nvim][telescope.nvim]] to
+search and select opened
+[[https://github.com/voldikss/vim-floaterm][vim-floaterm]] terminals. It can be downloaded
+[[https://github.com/dawsers/telescope-floaterm.nvim][here]].
+
+** Requirements
+
+=telescope-floaterm.nvim= is an extension, so you need =telescope.nvim= to make it work.
+
+Of course, you also need to be using [[https://github.com/voldikss/vim-floaterm][vim-floaterm]].
+
+
+** Installation and Configuration
+
+Install using [[https://github.com/junegunn/vim-plug][Plug]].
+
+#+BEGIN_SRC vim
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'dawsers/telescope-floaterm.nvim'
+#+END_SRC
+
+and setup and configure using /lua/:
+
+#+BEGIN_SRC lua
+require('telescope').load_extension('floaterm')
+#+END_SRC
+
+
+** Commands
+
+| *Command*                   | *Description*                  |
+|-----------------------------+--------------------------------|
+| =Telescope floaterm=        | List/Select floaterm terminals |
+
+There is no default key binding to call =telescope-floaterm.nvim=,
+this is an example you may want to use:
+
+#+BEGIN_SRC vim
+" There are no default keyboard bindings, these are an example
+nnoremap   <silent>   <leader>tf    :FloatermNew<CR>
+tnoremap   <silent>   <leader>tf    <C-\><C-n>:FloatermNew<CR>
+nnoremap   <silent>   <leader>tp    :FloatermPrev<CR>
+tnoremap   <silent>   <leader>tp    <C-\><C-n>:FloatermPrev<CR>
+nnoremap   <silent>   <leader>tn    :FloatermNext<CR>
+tnoremap   <silent>   <leader>tn    <C-\><C-n>:FloatermNext<CR>
+nnoremap   <silent>   <leader>tt    :FloatermToggle<CR>
+tnoremap   <silent>   <leader>tt    <C-\><C-n>:FloatermToggle<CR>
+nnoremap   <silent>   <leader>tk    :FloatermKill<CR>
+tnoremap   <silent>   <leader>tk    <C-\><C-n>:FloatermKill<CR>
+nnoremap   <silent>   <leader>tl    :Telescope floaterm<CR>
+tnoremap   <silent>   <leader>tl    <C-\><C-n>:Telescope floaterm<CR>
+xnoremap   <silent>   <leader>ts    :FloatermSend<CR>
+#+END_SRC
+
+
+** Highlighting
+
+There are two highlighting groups you can use to customize the look of the
+results: =TelescopeFloatermBufNumber=, and =TelescopeFloatermBufName=. You can
+assign colors to them customizing your /colorscheme/, or in your /Neovim/
+configuration.
+
+#+BEGIN_SRC lua
+-- These are the default values for the highlighting groups if you don't
+-- modify them
+vim.cmd("highlight default link TelescopeFloatermBufNumber Number")
+vim.cmd("highlight default link TelescopeFloatermBufName Function")
+#+END_SRC
+
