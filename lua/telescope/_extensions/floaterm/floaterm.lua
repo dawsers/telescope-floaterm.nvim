@@ -7,16 +7,14 @@ local entry_display = require("telescope.pickers.entry_display")
 
 local floaterm = {}
 
-local function floaterm_select()
-  return function(prompt_buffer)
-    local selection = action_state.get_selected_entry()
-    if not selection then
-      return
-    end
-    actions.close(prompt_buffer)
-    vim.fn['floaterm#terminal#open_existing'](selection.bufnr)
-    vim.api.nvim_eval("timer_start(100, {->execute('doautocmd BufEnter')})")
+local function floaterm_select(prompt_buffer)
+  local selection = action_state.get_selected_entry()
+  if not selection then
+    return
   end
+  actions.close(prompt_buffer)
+  vim.fn['floaterm#terminal#open_existing'](selection.bufnr)
+  vim.api.nvim_eval("timer_start(100, {->execute('doautocmd BufEnter')})")
 end
 
 
@@ -62,7 +60,7 @@ floaterm.search = function(opts)
     previewer = conf.grep_previewer(opts),
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
-      actions.select_default:replace(floaterm_select(prompt_bufnr))
+      actions.select_default:replace(floaterm_select)
       return true
     end,
   }):find()
